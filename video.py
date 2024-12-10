@@ -10,10 +10,11 @@ from mysql.connector import Error
 def create_connection():
     try:
         connection = mysql.connector.connect(
-            host="localhost",
-            database="company",
-            user="root",
-            password="Sahil@123"
+            host="sql213.infinityfree.com",
+            database="if0_37889364_company",
+            user="if0_37889364",
+            password="Sahil9467179591",
+            port="3306"
         )
         if connection.is_connected():
             return connection
