@@ -10,11 +10,18 @@ from mysql.connector import Error
 def create_connection():
     try:
         connection = mysql.connector.connect(
-            host="sql213.infinityfree.com",
-            database="if0_37889364_company",
-            user="if0_37889364",
-            password="Sahil9467179591",
-            port="3306"
+            # host="sql213.infinityfree.com",
+            # database="if0_37889364_company",
+            # user="if0_37889364",
+            # password="Sahil9467179591",
+            # port="3306"
+            host='gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
+            user = '4KogpSAxrkMP7E2.root',
+            password = 'rEpyGgWXDtMfU24a',
+            database = 'company',
+            port = 4000
+
+
         )
         if connection.is_connected():
             return connection
