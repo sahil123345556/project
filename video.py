@@ -116,7 +116,7 @@ def admin_dashboard():
             # Ensure the connection is closed
               if conn.is_connected():
                   cursor.close()
-                   conn.close()      
+                  conn.close()      
         else:
             st.error("All fields are required!")
     # if st.button("Add Employee", key="add_employee_button_unique"):
