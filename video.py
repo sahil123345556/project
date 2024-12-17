@@ -142,7 +142,7 @@ def admin_dashboard():
             else:
                 st.error("An unexpected error occurred. Please try again later.")
         
-        finally:
+         finally:
             # Ensure the connection is closed
             if conn.is_connected():
                 cursor.close()
