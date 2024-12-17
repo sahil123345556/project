@@ -94,19 +94,50 @@ def admin_dashboard():
     )
     emp_department = st.selectbox("Department", ["Sales", "Operations", "Credit", "Admin","Leadership"], key="add_emp_department_unique")
 
+    # if st.button("Add Employee", key="add_employee_button_unique"):
+    #     if emp_username and emp_dob:
+    #         # Password is the combination of username and dob in the format 'usernameDDMMYYYY'
+    #         password = emp_username + str(emp_dob.strftime("%d%m%Y"))
+    #         conn = create_connection()
+    #         cursor = conn.cursor()
+    #         cursor.execute("INSERT INTO employee (username, password, department, dob) VALUES (%s, %s, %s, %s)",
+    #                        (emp_username, password, emp_department, emp_dob))
+    #         conn.commit()
+    #         st.success(f"Employee {emp_username} added successfully!")
+    #         conn.close()
+    #     else:
+    #         st.error("All fields are required!")
     if st.button("Add Employee", key="add_employee_button_unique"):
-        if emp_username and emp_dob:
-            # Password is the combination of username and dob in the format 'usernameDDMMYYYY'
+    if emp_username and emp_dob:
+        try:
+            # Generate the password as 'usernameDDMMYYYY'
             password = emp_username + str(emp_dob.strftime("%d%m%Y"))
+            
+            # Create a connection and insert the employee
             conn = create_connection()
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO employee (username, password, department, dob) VALUES (%s, %s, %s, %s)",
-                           (emp_username, password, emp_department, emp_dob))
+            cursor.execute(
+                "INSERT INTO employee (username, password, department, dob) VALUES (%s, %s, %s, %s)",
+                (emp_username, password, emp_department, emp_dob)
+            )
             conn.commit()
             st.success(f"Employee {emp_username} added successfully!")
-            conn.close()
-        else:
-            st.error("All fields are required!")
+        
+        except IntegrityError as e:
+            # Check for duplicate entry error (MySQL error code 1062)
+            if e.errno == 1062:
+                st.error(f"Username '{emp_username}' is already taken. Please choose a different one.")
+            else:
+                st.error("An unexpected error occurred. Please try again later.")
+        
+        finally:
+            # Ensure the connection is closed
+            if conn.is_connected():
+                cursor.close()
+                conn.close()
+    else:
+        st.error("All fields are required!")
+    
 
     # 2. Remove Employee (based on username and dob)
     st.header("Remove Employee")
