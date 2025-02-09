@@ -6,16 +6,19 @@ import pickle
 from st_aggrid import AgGrid, GridOptionsBuilder
 from mysql.connector import Error
 
+config = toml.load("secrets.toml")
+db_config = config["database"]
+
 # Function to create a connection to MySQL
 def create_connection():
     try:
         connection = mysql.connector.connect(
             
-            host='gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-            user = '4KogpSAxrkMP7E2.root',
-            password = 'rEpyGgWXDtMfU24a',
-            database = 'company',
-            port = 4000
+        host = db_config["host"],
+        user = db_config["user"],
+        password = db_config["password"],
+        database = db_config["database"],
+        port = db_config["port"]
 
 
         )
