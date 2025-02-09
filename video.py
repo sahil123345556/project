@@ -5,6 +5,7 @@ from datetime import date
 import pickle
 from st_aggrid import AgGrid, GridOptionsBuilder
 from mysql.connector import Error
+import toml
 
 config = toml.load("secrets.toml")
 db_config = config["database"]
