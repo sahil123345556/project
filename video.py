@@ -15,11 +15,11 @@ def create_connection():
     try:
         connection = mysql.connector.connect(
             
-        host = db_config["host"],
-        user = db_config["user"],
-        password = db_config["password"],
-        database = db_config["database"],
-        port = db_config["port"]
+            host=st.secrets["database"]["host"],
+            user=st.secrets["database"]["user"],
+            password=st.secrets["database"]["password"],
+            database=st.secrets["database"]["database"],
+            port=st.secrets["database"]["port"],
 
 
         )
